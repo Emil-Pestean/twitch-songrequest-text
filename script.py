@@ -25,13 +25,14 @@ while check == True:
 def Music():
 
     r = requests.get("https://api.nightbot.tv/1/song_requests/queue", headers={"Nightbot-Channel":channel_id}) #REQUESTS API DATA AND APPLY CHANNEL'S ID IN HTTP HEADER
+    print(r.json())
     try:
-        musicName = (r.json()['_currentSong']['track']['title']) #LOADS AS JSON AND SEARCHS FOR SONG'S NAME
-        f = open('music.txt', 'r', encoding='utf-8') 
+        musicName = ('Playing: ' + r.json()['_currentSong']['track']['title']) #LOADS AS JSON AND SEARCHS FOR SONG'S NAME
+        f = open('/mnt/d/music.txt', 'r', encoding='utf-8') 
         if (f.read()) == musicName:
             pass
         else:
-            f = open('music.txt', 'w', encoding='utf-8') #PUTS THE NAME IN A TEXT FILE IF NOT ALREADY THERE
+            f = open('/mnt/d/music.txt', 'w', encoding='utf-8') #PUTS THE NAME IN A TEXT FILE IF NOT ALREADY THERE
             print (f"Now playing: {musicName}")
             f.write(musicName)
             f.close()
